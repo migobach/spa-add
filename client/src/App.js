@@ -1,21 +1,27 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import Home from './components/Home'
+import About from './components/About'
+import NoMatch from './components/NoMatch'
+import NavBar from './components/NavBar'
+import Login from './components/Login'
+import Dashboard from './components/Dashboard'
+import Product from './components/Product'
+import ProtectedRoute from './components/ProtectedRoute'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Fragment>
+    <NavBar />
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/login" component={Login} />
+      <ProtectedRoute exact path="/Dashboard" component={Dashboard} />
+      <ProtectedRoute exact path="/products/:id" component={Product} />
 
-export default App;
+      <Route component={NoMatch} />
+    </Switch>
+  </Fragment>
+)
+
+export default App
